@@ -15,3 +15,12 @@ Status: complete.
 Details: DA input parameters adopted directly from ECMWF (no tuning attempted).
 Uses GHCN station observations in place of NRT station obs. 
 Tested October, 2019 - April 2020 at C128, showed significant improvement to snow depth, reduction in T2m biases over snow cover areas.
+
+
+>OI_JEDI 
+
+The OI has been implemented as a special case of the LETKF within the fv3-bundle of JEDI.
+
+Contains a readme only, which lists tasks necessary to convert the snow depth OI into JEDI. 
+This work is being managed from the JEDI repo, and it repeated here for completeness only.
+
