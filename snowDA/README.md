@@ -6,9 +6,12 @@ Gichamo and Draper, A Modern Snow Data Assimilation System for NOAA’s Unified 
 
 Directory/Task list:
 
->snowOI 
-Original development of OI for the Noah model at PSL. 
+>snowOI_PSL
 
-DA input parameters adopted directly from ECMWF (no tuning attempted).
+Brief: Development and testing of OI for the Noah model at PSL. This is the pre-JEDI version.
+
+Status: complete.
+
+Details: DA input parameters adopted directly from ECMWF (no tuning attempted).
 Uses GHCN station observations in place of NRT station obs. 
 Tested October, 2019 - April 2020 at C128, showed significant improvement to snow depth, reduction in T2m biases over snow cover areas.
