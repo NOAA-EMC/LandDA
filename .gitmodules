@@ -1,3 +1,6 @@
 [submodule "snowDA/src/snowOI_PSL"]
 	path = snowDA/src/snowOI_PSL
 	url = https://github.com/ClaraDraper-NOAA/snowDA_OI.git
+[submodule "snowDA/test/snowOI_PSL"]
+	path = snowDA/test/snowOI_PSL
+	url = https://github.com/ClaraDraper-NOAA/snowDA_OI_testcase
