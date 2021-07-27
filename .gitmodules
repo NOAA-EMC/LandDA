@@ -4,3 +4,6 @@
 [submodule "snowOI_PSL/src"]
 	path = snowDA/snowOI_PSL/src
 	url = https://github.com/ClaraDraper-NOAA/snowDA_OI.git
+[submodule "fv3_mapping"]
+	path = fv3_mapping/fv3_mapping
+	url = https://github.com/barlage/fv3_mapping.git
