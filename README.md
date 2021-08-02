@@ -10,4 +10,12 @@ Directories:
 
 OI assimilation of station snow depth, and IMS snow cover. 
 
+> fv3_mapping 
+
+Mike's code to assign lat/lon to an FV3 grid cell.
+
+
+To download all subdirectories: 
+git submodule update --init --recursive
+
 

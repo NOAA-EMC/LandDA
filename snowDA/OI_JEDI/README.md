@@ -10,7 +10,7 @@ Tasks include:
  
 Status: complete. 
 
-To run the OI, use the letkf_snow testcase.
+To run the OI, use the letkf_snow testcase. Latest yaml is in this directory.
 
 2. Adding snow depth-specific code, including QC and interpolation routines. 
 
