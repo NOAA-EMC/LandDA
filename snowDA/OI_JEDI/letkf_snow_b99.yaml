@@ -24,17 +24,17 @@ background:
  date: &date '2019-12-15T12:00:00Z' 
  members:
    - filetype: gfs
-     state variables: [snwdph,slmsk] 
+     state variables: [snwdph,slmsk,vtype] 
      datapath: inputs/gfs_land_C768/mem_pos/
      filename_sfcd: 20191215.120000.sfc_data.nc
      filename_cplr: 20191215.120000.coupler.res
    - filetype: gfs
-     state variables: [snwdph,slmsk]
+     state variables: [snwdph,slmsk,vtype]
      datapath: inputs/gfs_land_C768/mem_neg/
      filename_sfcd: 20191215.120000.sfc_data.nc
      filename_cplr: 20191215.120000.coupler.res
    - filetype: gfs
-     state variables: [snwdph,slmsk]
+     state variables: [snwdph,slmsk,vtype]
      datapath: inputs/gfs_land_C768/mem_det/
      filename_sfcd: 20191215.120000.sfc_data.nc
      filename_cplr: 20191215.120000.coupler.res
@@ -81,6 +81,12 @@ observations:
     - variable:
         name: altitude@MetaData
       minvalue: -999.0
+  - filter: RejectList # no land-ice
+    where:
+    - variable: 
+        name: vtype@GeoVaLs
+      minvalue: 14.5
+      maxvalue: 15.5
 
 driver: 
   save posterior mean: true 

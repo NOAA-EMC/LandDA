@@ -15,7 +15,6 @@ To run the OI, use the letkf_snow testcase. Latest yaml is in this directory.
 2. Adding snow depth-specific code, including QC and interpolation routines. 
 
 Status: 
--land-ice mask QC is outstanding. 
 -update the JEDI test case to include QC (wait for Sergey to implement QC on ensmeble mean). 
 
 3. Evaluation of global OI algorithm within JEDI, against the PSL version. 
