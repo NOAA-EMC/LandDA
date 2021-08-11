@@ -5,19 +5,21 @@ import sys
 # calculate the desired standard deviation
 #b= 30. 
 
-if (len(sys.argv) != 3): 
-    print('argument error, usage: letkf_create file_stub back_error' ) 
+if (len(sys.argv) != 4): 
+    print('argument error, usage: letkf_create back_error n_ens' ) 
 
 fstub=sys.argv[1]
 b = float(sys.argv[2]) 
+n = float(sys.argv[3])
 
-# if have 2 ens members 
-#offset=b/np.sqrt(2)
+if (n==2): 
+    offset=b/np.sqrt(2)
+elif (n==3):
+    offset=b 
+else:
+     print('ERROR: number of ensemble members can only be 2 or 3') 
 
-# if have 3 ens members 
-offset=b 
-
-print('adjusting '+fstub+'* by '+str(offset))
+print('adjusting by '+str(offset))
 
 sign = [1,-1]
 ens_dirs=['mem_pos','mem_neg'] 

@@ -1,0 +1,20 @@
+Code to create pseudo ensemble members for the LETKF-OI. 
+
+change input variables at top of make_letkf_pseudoens.sh: 
+dir_in - directory with input enemble (ie., the forecast) 
+fstub - stub for file names (eveything before sfc_data.tile$n.nc this is usually the date) 
+b - desired background error 
+nens - number of ensemble members to be generated.
+
+Currently using 3 ensemble members, as JEDI applies QC to the last ensemble member: 
+mem_pos (has +ve increment added) 
+mem_neg (has -ve increment added) 
+mem_det (unperturbed  - make sure this is listed last in the DA yaml) 
+
+Once JEDI has been updated to apply QC to the ensemble mean, we can revert to 2 ensemble members (pos and neg).  
+
+The perturbation applied is different for the 2 and 3 ensemble member cases. Set the n_ens in make_letkf_pseudoens.sh to the appropriate number of ensemble members, and the  appropirate perturbation will be calculated.
+
+There is a C48 test case here: 
+/scratch2/BMC/gsienkf/Clara.Draper/DA_test_cases/jedi/create_ens
+
