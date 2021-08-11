@@ -1,0 +1,111 @@
+geometry:
+  nml_file_mpp: Data/fv3files/fmsmpp.nml
+  trc_file: Data/fv3files/field_table
+  akbk: Data/fv3files/akbk64.nc4
+  npx: 769
+  npy: 769
+  npz: 64
+  ntiles: 6
+  layout: [1,1]
+  io_layout: [1,1]
+  fieldsets:
+    - fieldset: Data/fieldsets/land.yaml
+    - fieldset: Data/fieldsets/ufo.yaml
+    - fieldset: Data/fieldsets/oro_data.yaml
+  read_orog: true
+  orog_IO_name: orog_filt
+  filename_orog: C768_oro_data.nc
+  datapath: inputs/gfs_land_C768/orog/
+  prepend files with date: false
+
+window begin: '2021-02-01T20:00:00Z'
+window length: PT8H
+
+background:
+ date: &date '2021-02-02T00:00:00Z' 
+ members:
+   - filetype: gfs
+     state variables: [snwdph,slmsk] 
+     datapath: inputs/gfs_land_C768/20210202/00/mem_pos/
+     filename_sfcd: 20210202.000000.sfc_data.nc
+     filename_cplr: 20210202.000000.coupler.res
+   - filetype: gfs
+     state variables: [snwdph,slmsk]
+     datapath: inputs/gfs_land_C768/20210202/00/mem_neg/
+     filename_sfcd: 20210202.000000.sfc_data.nc
+     filename_cplr: 20210202.000000.coupler.res
+   - filetype: gfs
+     state variables: [snwdph,slmsk]
+     datapath: inputs/gfs_land_C768/20210202/00/mem_det/
+     filename_sfcd: 20210202.000000.sfc_data.nc
+     filename_cplr: 20210202.000000.coupler.res
+
+observations:
+- obs space:
+    name: 'Simulate'
+    distribution: InefficientDistribution # this puts every ob. on every processor  
+                                          # can also use halo, but is less mature
+    simulated variables: [snowDepth]
+    obsdatain:
+      obsfile: inputs/obs/202102_snowDepth/adpsfc_2021020200.nc4
+    obsdataout:
+      obsfile: output/hofx_b99/hofx_letkf.nc
+  obs operator:
+    name: 'Identity'
+  obs error:
+    covariance model: diagonal
+  obs localization:
+    search method: kd_tree
+    lengthscale: 250e3
+    localization method: Brasnett99
+    soar horizontal decay: 0.0000215
+    vertical lengthscale: 700
+  obs filters:
+  - filter: Bounds Check
+    filter variables:
+    - name: snowDepth
+    minvalue: 0.0
+  - filter: Background Check
+    filter variables:
+    - name: snowDepth
+    threshold: 6.25
+    action:
+      name: reject
+  - filter: Domain Check
+    where:
+    - variable:
+        name: slmsk@GeoVaLs
+      minvalue: 0.5
+      maxvalue: 1.5
+  - filter: Domain Check
+    where:
+    - variable:
+        name: altitude@MetaData
+      minvalue: -999.0
+
+driver: 
+  save posterior mean: true 
+  save posterior mean increment: false
+  save posterior ensemble: true 
+
+local ensemble DA:
+  solver: LETKF
+  inflation:
+    rtps: 0.0
+    rtpp: 0.0
+    mult: 1.0
+
+output:
+  filetype: gfs
+  datapath: output/anal_b99/mem%{member}%
+  #filename_core: letkf.fv_core.res.nc
+  #filename_trcr: letkf.fv_tracer.res.nc
+  filename_sfcd: letkf.sfc_data.nc
+  #filename_sfcw: letkf.fv_srf_wnd.res.nc
+  first: PT0H
+  frequency: PT1H
+  date: *date
+
+prints:
+  frequency: PT3H
+
