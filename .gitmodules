@@ -7,3 +7,4 @@
 [submodule "fv3_mapping/fv3_mapping"]
 	path = fv3_mapping/fv3_mapping
 	url = https://github.com/barlage/fv3_mapping.git
+	update = merge
